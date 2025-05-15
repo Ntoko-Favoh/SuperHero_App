@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About SuperUniverse | Home of Superheroes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #f0f0f0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            animation: bounce 2s infinite;
+        }
+
+        .logo-text span {
+            color: #ff3d00;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background-color: #ff3d00;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #ff3d00;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        /* About Page */
+        .about-page {
+            min-height: 100vh;
+            padding: 100px 5% 50px;
+            position: relative;
+            background: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+        }
+        
+        .about-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 0;
+        }
+        
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .about-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ff3d00;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+        
+        .about-header p {
+            font-size: 1.2rem;
+            color: #f0f0f0;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .about-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 61, 0, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(255, 61, 0, 0.2);
+            border-color: #ff3d00;
+        }
+        
+        .about-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ff3d00;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .about-card h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #ff3d00;
+        }
+        
+        .about-card p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .team-section {
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .team-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #ff3d00;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .team-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #ff3d00;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .team-member {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 61, 0, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(255, 61, 0, 0.2);
+            border-color: #ff3d00;
+        }
+        
+        .member-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 3px solid #ff3d00;
+        }
+        
+        .member-info {
+            padding: 1.5rem;
+        }
+        
+        .member-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #ff3d00;
+        }
+        
+        .member-info p {
+            color: #ccc;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .member-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .member-social a:hover {
+            background-color: #ff3d00;
+            transform: translateY(-3px);
+        }
+        
+        .mission-section {
+            margin-top: 5rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 61, 0, 0.3);
+            text-align: center;
+        }
+        
+        .mission-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #ff3d00;
+        }
+        
+        .mission-section p {
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .mission-icon {
+            font-size: 3rem;
+            color: #ff3d00;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: space-around;
+            }
+            
+            .nav-links li {
+                margin: 0;
+            }
+            
+            .about-header h1 {
+                font-size: 2rem;
+            }
+            
+            .about-card {
+                min-width: 100%;
+            }
+            
+            .mission-section {
+                padding: 2rem 1rem;
+            }
+        }
+
+         /* Footer Styles */
+           footer {
+            background-color: #111;
+            color: #fff;
+            padding: 3rem 5%;
+            border-top: 3px solid #ff3d00;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            color: #ff3d00;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #ff3d00;
+        }
+
+        .footer-section p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: #ff3d00;
+        }
+
+        .footer-links i {
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #333;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.jpg" alt="SuperUniverse Logo">
+            <div class="logo-text">Super<span>Universe</span></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="superheroes.html"><i class="fas fa-mask"></i> Superheroes</a></li>
+            <li><a href="favorites.html"><i class="fas fa-heart"></i> Favorites</a></li>
+            <li><a href="about.html" class="active"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- About Page -->
+    <div class="about-page">
+        <div class="about-container">
+            <div class="about-header">
+                <h1>About SuperUniverse</h1>
+                <p>Discover the story behind the ultimate destination for superhero enthusiasts and collectors</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-card" style="animation: slideInLeft 1s ease-out;">
+                    <h2>Our Story</h2>
+                    <p>Founded in 2015 by a group of passionate comic book fans, SuperUniverse began as a small online forum discussing our favorite superheroes. What started as a hobby quickly grew into the largest superhero database and community on the web.</p>
+                    <p>Today, we serve millions of fans worldwide with comprehensive superhero profiles, news, and a thriving community where fans can connect and share their passion.</p>
+                </div>
+                
+                <div class="about-card" style="animation: fadeIn 1.5s ease-out;">
+                    <h2>What We Do</h2>
+                    <p>SuperUniverse is dedicated to preserving and celebrating superhero history while keeping fans updated on the latest developments in comics, movies, and TV shows.</p>
+                    <p>Our team of experts works around the clock to maintain the most accurate and comprehensive superhero database, featuring detailed profiles, power analyses, and historical timelines.</p>
+                </div>
+                
+                <div class="about-card" style="animation: slideInRight 1s ease-out;">
+                    <h2>Our Community</h2>
+                    <p>With over 2 million registered users, our community is the heart of SuperUniverse. Join discussions, create fan art, participate in polls, and connect with fellow superhero enthusiasts.</p>
+                    <p>We host regular events including virtual comic conventions, creator Q&As, and cosplay competitions to bring our community together.</p>
+                </div>
+            </div>
+            
+            <div class="team-section">
+                <h2>Meet The Team</h2>
+                <p>The passionate individuals who keep SuperUniverse running</p>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Alex Johnson" class="member-image">
+                        <div class="member-info">
+                            <h3>Alex Johnson</h3>
+                            <p>Founder & CEO</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Chen" class="member-image">
+                        <div class="member-info">
+                            <h3>Sarah Chen</h3>
+                            <p>Content Director</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Marcus Wright" class="member-image">
+                        <div class="member-info">
+                            <h3>Marcus Wright</h3>
+                            <p>Lead Developer</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Jamie Rivera" class="member-image">
+                        <div class="member-info">
+                            <h3>Jamie Rivera</h3>
+                            <p>Community Manager</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mission-section">
+                <div class="mission-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2>Our Mission</h2>
+                <p>At SuperUniverse, we believe that superheroes represent the best of humanity - courage, justice, and the never-ending fight for what's right. Our mission is to create a space where fans of all ages can explore, discuss, and celebrate these modern myths that inspire us to be better.</p>
+                <p>We're committed to maintaining an inclusive, respectful community where everyone can share their love for superheroes, regardless of which universe they hail from.</p>
+            </div>
+        </div>
+    </div>
+
+     <!-- Footer -->
+        <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Superhero Universe</h3>
+                    <p>Your ultimate source for superhero information from Marvel, DC, and beyond.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="superheroes.html"><i class="fas fa-mask"></i> Superheroes</a></li>
+                        <li><a href="favorites.html"><i class="fas fa-heart"></i> Favorites</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="superheroes.html"><i class="fas fa-bolt"></i> Marvel Heroes</a></li>
+                        <li><a href="superheroes.html"><i class="fas fa-shield-alt"></i> DC Heroes</a></li>
+                        <li><a href="superheroes.html"><i class="fas fa-star"></i> Other Heroes</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 SuperUniverse. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff3d00;"></i> for superhero fans</p>
+            </div>
+        </div>
+    </footer>
+  
+
+    <script>
+        // Simple animation trigger for team members
+        document.addEventListener('DOMContentLoaded', function() {
+            const teamMembers = document.querySelectorAll('.team-member');
+            
+            teamMembers.forEach((member, index) => {
+                // Add delay to each member's animation
+                member.style.animation = `fadeIn ${0.5 + (index * 0.2)}s ease-out forwards`;
+                member.style.opacity = '0';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superhero Creator | SuperUniverse</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #0984e3;
+            --accent-color: #00cec9;
+            --background-color: #0f0f1a;
+            --text-color: #f8f8f8;
+            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --navbar-height: 80px;
+            --border-radius: 12px;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-top: var(--navbar-height);
+            background-image: radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.1) 0%, transparent 20%),
+                            radial-gradient(circle at 90% 80%, rgba(0, 206, 201, 0.1) 0%, transparent 20%);
+        }
+        
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--navbar-height);
+            background-color: rgba(15, 15, 26, 0.95);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo img {
+            height: 36px;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 24px;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: white;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--accent-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #ff3d00;
+            margin-bottom: 40px;
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 4px 20px rgba(0, 206, 201, 0.3);
+        }
+        
+        .app-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+        
+        .creator-card {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(25, 25, 40, 0.7);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            padding: 30px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .creator-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .creator-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .hero-preview {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .hero-display {
+            width: 320px;
+            height: 320px;
+            background: linear-gradient(135deg, var(--secondary-color), #0f0f1a);
+            border-radius: var(--border-radius);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(9, 132, 227, 0.3);
+            overflow: hidden;
+        }
+        
+        .hero-display::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+            animation: shine 6s infinite linear;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(30deg); }
+            100% { transform: translateX(100%) rotate(30deg); }
+        }
+        
+        .hero-image {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            border: 6px solid var(--accent-color);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: saturate(1.2) contrast(1.1);
+        }
+        
+        .cape {
+            position: absolute;
+            bottom: -40px;
+            width: 180px;
+            height: 120px;
+            background-color: var(--primary-color);
+            clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+            z-index: 1;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+            transition: all 0.3s ease;
+        }
+        
+        .mask {
+            position: absolute;
+            width: 100%;
+            height: 60px;
+            background-color: var(--secondary-color);
+            top: 30px;
+            border-radius: 30px;
+            z-index: 3;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            transition: all 0.3s ease;
+        }
+        
+        .eyes {
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            top: 50px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            z-index: 4;
+        }
+        
+        .eye {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        .accessory {
+            position: absolute;
+            z-index: 4;
+            transition: all 0.3s ease;
+        }
+        
+        .badge {
+            width: 45px;
+            height: 45px;
+            background-color: #ffd700;
+            border-radius: 50%;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #000;
+            font-size: 1.3rem;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .belt {
+            width: 140px;
+            height: 18px;
+            background-color: #333;
+            border-radius: 8px;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .gloves {
+            width: 60px;
+            height: 30px;
+            background-color: #333;
+            border-radius: 12px;
+            bottom: 20px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .left-glove {
+            left: 15px;
+        }
+        
+        .right-glove {
+            right: 15px;
+        }
+        
+        .controls {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .control-group {
+            margin-bottom: 24px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.3);
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+        
+        .color-options {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .color-option {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .color-option:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+        }
+        
+        .color-option.active {
+            transform: scale(1.1);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(0, 206, 201, 0.5);
+        }
+        
+        .background-options {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .background-option {
+            width: 60px;
+            height: 36px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .background-option:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+        }
+        
+        .background-option.active {
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(0, 206, 201, 0.5);
+        }
+        
+        .power-indicator {
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+        
+        .power-level {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 6px;
+            width: 70%;
+            box-shadow: 0 0 10px rgba(0, 206, 201, 0.5);
+            transition: width 0.5s ease;
+        }
+        
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 206, 201, 0.8);
+            border: 3px solid white;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 206, 201, 1);
+        }
+        
+        .team-badges {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .team-badge {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: white;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .team-badge:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+        }
+        
+        .team-badge.active {
+            transform: scale(1.1);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(0, 206, 201, 0.5);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin-top: 8px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+            background-color: white;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 24px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.3) 0%,
+                rgba(255, 255, 255, 0) 60%
+            );
+            transform: rotate(30deg);
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.6);
+        }
+        
+        .btn:hover::after {
+            transform: translateX(100%) rotate(30deg);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 10px rgba(108, 92, 231, 0.6);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #2d3436, #636e72);
+            box-shadow: 0 4px 15px rgba(45, 52, 54, 0.4);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 8px 25px rgba(45, 52, 54, 0.6);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .final-hero-card {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(25, 25, 40, 0.7);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            padding: 40px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            text-align: center;
+            animation: fadeIn 0.6s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .final-hero-card h2 {
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0, 206, 201, 0.3);
+        }
+        
+        .final-hero-display {
+            width: 320px;
+            height: 320px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, var(--secondary-color), #0f0f1a);
+            border-radius: var(--border-radius);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(9, 132, 227, 0.3);
+            overflow: hidden;
+        }
+        
+        .final-hero-display::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+            animation: shine 6s infinite linear;
+        }
+        
+        .hero-details {
+            margin-top: 30px;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .hero-details p {
+            margin-bottom: 15px;
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .hero-details strong {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .hero-details i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        
+        .action-buttons .btn {
+            margin-top: 0;
+            flex: 1;
+            max-width: 250px;
+        }
+
+          /* Footer Styles */
+        footer {
+            background-color: #111;
+            color: #fff;
+            padding: 3rem 5%;
+            border-top: 3px solid #ff3d00;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            color: #ff3d00;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #ff3d00;
+        }
+        
+        .footer-section p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-links a:hover {
+            color: #ff3d00;
+        }
+        
+        .footer-links i {
+            font-size: 0.9rem;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #333;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 20px;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 5px 10px;
+            }
+            
+            body {
+                padding-top: 100px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+                margin-bottom: 30px;
+            }
+            
+            .creator-content {
+                flex-direction: column;
+            }
+            
+            .hero-preview, .controls {
+                width: 100%;
+            }
+            
+            .hero-display, .final-hero-display {
+                width: 280px;
+                height: 280px;
+            }
+            
+            .hero-image {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-buttons .btn {
+                max-width: 100%;
+            }
+
+            .footer-section {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.jpg" alt="SuperUniverse Logo">
+            <div class="logo-text">SuperUniverse</div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1><i class="fas fa-plus-circle"></i> Superhero Creator</h1>
+        
+        <div class="app-container">
+            <div id="creatorCard" class="creator-card">
+                <div class="creator-content">
+                    <div class="hero-preview">
+                        <div class="hero-display">
+                            <div class="hero-image">
+                                <img src="images/0c17986c-16bc-4b9a-8dd7-bb211e9bfafe.jpg" alt="hero-image">
+                                </div>
+                                <div class="accessory badge hidden" id="heroBadge"></div>
+                                <div class="accessory belt hidden" id="heroBelt"></div>
+                                <div class="accessory gloves left-glove hidden" id="leftGlove"></div>
+                                <div class="accessory gloves right-glove hidden" id="rightGlove"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="controls">
+                        <div class="control-group">
+                            <label for="nameInput"><i class="fas fa-user"></i> Hero Name:</label>
+                            <input type="text" id="nameInput" placeholder="Enter hero name">
+                        </div>
+                        
+                        <div class="control-group">
+                            <label><i class="fas fa-tshirt"></i> Cape Color:</label>
+                            <div class="color-options">
+                                <div class="color-option active" style="background-color: #6c5ce7;" onclick="changeCapeColor('#6c5ce7', this)"></div>
+                                <div class="color-option" style="background-color: #0984e3;" onclick="changeCapeColor('#0984e3', this)"></div>
+                                <div class="color-option" style="background-color: #00b894;" onclick="changeCapeColor('#00b894', this)"></div>
+                                <div class="color-option" style="background-color: #fdcb6e;" onclick="changeCapeColor('#fdcb6e', this)"></div>
+                                <div class="color-option" style="background-color: #e84393;" onclick="changeCapeColor('#e84393', this)"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label><i class="fas fa-mask"></i> Mask Style:</label>
+                            <select id="maskStyle" onchange="changeMaskStyle()">
+                                <option value="full">Full Mask</option>
+                                <option value="half">Half Mask</option>
+                                <option value="domino">Domino Mask</option>
+                                <option value="none">No Mask</option>
+                            </select>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label><i class="fas fa-palette"></i> Mask Color:</label>
+                            <div class="color-options">
+                                <div class="color-option active" style="background-color: #0984e3;" onclick="changeMaskColor('#0984e3', this)"></div>
+                                <div class="color-option" style="background-color: #2d3436;" onclick="changeMaskColor('#2d3436', this)"></div>
+                                <div class="color-option" style="background-color: #6a040f;" onclick="changeMaskColor('#6a040f', this)"></div>
+                                <div class="color-option" style="background-color: #184e77;" onclick="changeMaskColor('#184e77', this)"></div>
+                                <div class="color-option" style="background-color: #3a0ca3;" onclick="changeMaskColor('#3a0ca3', this)"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label><i class="fas fa-image"></i> Background:</label>
+                            <div class="background-options">
+                                <div class="background-option active" style="background: linear-gradient(135deg, #0984e3, #0f0f1a);" onclick="changeBackground('linear-gradient(135deg, #0984e3, #0f0f1a)', this)"></div>
+                                <div class="background-option" style="background: linear-gradient(135deg, #6c5ce7, #e84393);" onclick="changeBackground('linear-gradient(135deg, #6c5ce7, #e84393)', this)"></div>
+                                <div class="background-option" style="background: linear-gradient(135deg, #00b894, #0f0f1a);" onclick="changeBackground('linear-gradient(135deg, #00b894, #0f0f1a)', this)"></div>
+                                <div class="background-option" style="background: linear-gradient(135deg, #fdcb6e, #e84393);" onclick="changeBackground('linear-gradient(135deg, #fdcb6e, #e84393)', this)"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label><i class="fas fa-bolt"></i> Primary Power:</label>
+                            <select id="primaryPower">
+                                <option>Super Strength</option>
+                                <option>Flight</option>
+                                <option>Telepathy</option>
+                                <option>Invisibility</option>
+                                <option>Energy Blasts</option>
+                                <option>Elemental Control</option>
+                                <option>Shape Shifting</option>
+                                <option>Super Speed</option>
+                                <option>Time Manipulation</option>
+                                <option>Teleportation</option>
+                            </select>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label><i class="fas fa-star"></i> Secondary Power:</label>
+                            <select id="secondaryPower">
+                                <option>None</option>
+                                <option>Enhanced Healing</option>
+                                <option>Super Intelligence</option>
+                                <option>Force Field</option>
+                                <option>Night Vision</option>
+                                <option>Sonic Scream</option>
+                                <option>X-Ray Vision</option>
+                                <option>Wall Crawling</option>
+                            </select>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label><i class="fas fa-chart-line"></i> Power Level:</label>
+                            <div class="power-indicator">
+                                <div class="power-level" id="powerLevel"></div>
+                            </div>
+                            <input type="range" id="powerSlider" min="1" max="100" value="70" oninput="updatePowerLevel()">
+                        </div>
+                        
+                        <div class="control-group">
+                            <label><i class="fas fa-users"></i> Team Affiliation:</label>
+                            <div class="team-badges">
+                                <div class="team-badge" style="background-color: #6c5ce7;" onclick="selectTeam('A', this)">A</div>
+                                <div class="team-badge" style="background-color: #0984e3;" onclick="selectTeam('X', this)">X</div>
+                                <div class="team-badge" style="background-color: #00b894;" onclick="selectTeam('J', this)">J</div>
+                                <div class="team-badge" style="background-color: #e84393;" onclick="selectTeam('G', this)">G</div>
+                                <div class="team-badge" style="background-color: #fdcb6e;" onclick="selectTeam('', this)">-</div>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label><i class="fas fa-tshirt"></i> Accessories:</label>
+                            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                                <div>
+                                    <label for="badgeToggle" style="display: inline;">Badge</label>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="badgeToggle" onchange="toggleAccessory('heroBadge', this.checked)">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label for="beltToggle" style="display: inline;">Belt</label>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="beltToggle" onchange="toggleAccessory('heroBelt', this.checked)">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label for="glovesToggle" style="display: inline;">Gloves</label>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="glovesToggle" onchange="toggleGloves(this.checked)">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label><i class="fas fa-book"></i> Origin Story:</label>
+                            <select id="originStory">
+                                <option>Alien from another planet</option>
+                                <option>Scientific experiment</option>
+                                <option>Bitten by radioactive creature</option>
+                                <option>Born with powers</option>
+                                <option>Advanced technology</option>
+                                <option>Mystical artifact</option>
+                                <option>Freak accident</option>
+                                <option>Trained to perfection</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn" onclick="createHero()"><i class="fas fa-plus-circle"></i> Create Hero</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="finalHeroCard" class="final-hero-card hidden">
+                <h2 id="finalHeroName">Superhero</h2>
+                <div class="final-hero-display" id="finalDisplay">
+                    <!-- Hero will be rendered here -->
+                </div>
+                <div class="hero-details" id="heroDetails">
+                    <!-- Hero details will be rendered here -->
+                </div>
+                <div class="action-buttons">
+                    <button class="btn" onclick="resetCreator()"><i class="fas fa-redo"></i> Create Another</button>
+                    <button class="btn btn-secondary" onclick="shareHero()"><i class="fas fa-share-alt"></i> Share Hero</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Superhero Universe</h3>
+                    <p>Your ultimate source for superhero information from Marvel, DC, and beyond.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="superheroes.html"><i class="fas fa-mask"></i> Superheroes</a></li>
+                        <li><a href="favorites.html"><i class="fas fa-heart"></i> Favorites</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="superheroes.html"><i class="fas fa-bolt"></i> Marvel Heroes</a></li>
+                        <li><a href="superheroes.html"><i class="fas fa-shield-alt"></i> DC Heroes</a></li>
+                        <li><a href="superheroes.html"><i class="fas fa-star"></i> Other Heroes</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 SuperUniverse. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff3d00;"></i> for superhero fans</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        let selectedTeam = '';
+let selectedTeamElement = null;
+let activeCapeColor = document.querySelector('.color-option.active');
+let activeMaskColor = document.querySelectorAll('.color-option.active')[1];
+let activeBackground = document.querySelector('.background-option.active');
+
+function changeCapeColor(color, element) {
+    document.getElementById('cape').style.backgroundColor = color;
+    updateActiveClass(element, 'color-option');
+    activeCapeColor = element;
+}
+
+function changeMaskColor(color, element) {
+    document.getElementById('mask').style.backgroundColor = color;
+    updateActiveClass(element, 'color-option');
+    activeMaskColor = element;
+}
+
+function changeBackground(background, element) {
+    document.querySelectorAll('.hero-display').forEach(display => {
+        display.style.background = background;
+    });
+    updateActiveClass(element, 'background-option');
+    activeBackground = element;
+}
+
+function updateActiveClass(element, className) {
+    // Remove active class from all siblings
+    const siblings = element.parentElement.querySelectorAll(`.${className}`);
+    siblings.forEach(sib => sib.classList.remove('active'));
+    
+    // Add active class to clicked element
+    element.classList.add('active');
+}
+
+function changeMaskStyle() {
+    const mask = document.getElementById('mask');
+    const style = document.getElementById('maskStyle').value;
+    
+    switch(style) {
+        case 'full':
+            mask.style.height = '60px';
+            mask.style.top = '30px';
+            mask.style.borderRadius = '30px';
+            mask.style.width = '100%';
+            mask.style.display = 'block';
+            mask.style.left = '0';
+            mask.style.transform = 'translateX(0)';
+            break;
+        case 'half':
+            mask.style.height = '40px';
+            mask.style.top = '40px';
+            mask.style.borderRadius = '20px 20px 0 0';
+            mask.style.width = '100%';
+            mask.style.display = 'block';
+            mask.style.left = '0';
+            mask.style.transform = 'translateX(0)';
+            break;
+        case 'domino':
+            mask.style.height = '20px';
+            mask.style.top = '50px';
+            mask.style.width = '80px';
+            mask.style.borderRadius = '10px';
+            mask.style.display = 'block';
+            mask.style.left = '50%';
+            mask.style.transform = 'translateX(-50%)';
+            break;
+        case 'none':
+            mask.style.display = 'none';
+            break;
+        default:
+            mask.style.display = 'block';
+    }
+}
+
+function toggleAccessory(accessoryId, show) {
+    const accessory = document.getElementById(accessoryId);
+    if (show) {
+        accessory.classList.remove('hidden');
+    } else {
+        accessory.classList.add('hidden');
+    }
+}
+
+function toggleGloves(show) {
+    toggleAccessory('leftGlove', show);
+    toggleAccessory('rightGlove', show);
+}
+
+function selectTeam(team, element) {
+    selectedTeam = team;
+    
+    // Update active state for team badges
+    if (selectedTeamElement) {
+        selectedTeamElement.classList.remove('active');
+    }
+    if (element) {
+        element.classList.add('active');
+        selectedTeamElement = element;
+    } else {
+        selectedTeamElement = null;
+    }
+    
+    // Update badge if visible
+    const badge = document.getElementById('heroBadge');
+    if (!badge.classList.contains('hidden')) {
+        if (team) {
+            badge.textContent = team;
+            badge.style.display = 'flex';
+        } else {
+            badge.textContent = '';
+        }
+    }
+}
+
+function updatePowerLevel() {
+    const power = document.getElementById('powerSlider').value;
+    document.getElementById('powerLevel').style.width = power + '%';
+}
+
+function createHero() {
+    const name = document.getElementById('nameInput').value || 'Superhero';
+    const capeColor = document.getElementById('cape').style.backgroundColor;
+    const maskStyle = document.getElementById('maskStyle').value;
+    const primaryPower = document.getElementById('primaryPower').value;
+    const secondaryPower = document.getElementById('secondaryPower').value;
+    const powerLevel = document.getElementById('powerSlider').value;
+    const originStory = document.getElementById('originStory').value;
+    const hasBadge = document.getElementById('badgeToggle').checked;
+    const hasBelt = document.getElementById('beltToggle').checked;
+    const hasGloves = document.getElementById('glovesToggle').checked;
+    const background = document.querySelector('.hero-display').style.background;
+    
+    // Update final hero card
+    document.getElementById('finalHeroName').textContent = name;
+    
+    // Clone the hero display elements
+    const heroDisplay = document.querySelector('.hero-image').cloneNode(true);
+    document.getElementById('finalDisplay').innerHTML = '';
+    document.getElementById('finalDisplay').appendChild(heroDisplay);
+    document.getElementById('finalDisplay').style.background = background;
+    
+    // Set hero details
+    let details = `
+        <p><strong><i class="fas fa-bolt"></i> Primary Power:</strong> ${primaryPower}</p>
+    `;
+    
+    if (secondaryPower !== 'None') {
+        details += `<p><strong><i class="fas fa-star"></i> Secondary Power:</strong> ${secondaryPower}</p>`;
+    }
+    
+    details += `
+        <p><strong><i class="fas fa-chart-line"></i> Power Level:</strong> ${powerLevel}%</p>
+        <p><strong><i class="fas fa-mask"></i> Mask Style:</strong> ${maskStyle.charAt(0).toUpperCase() + maskStyle.slice(1)}</p>
+        <p><strong><i class="fas fa-book"></i> Origin Story:</strong> ${originStory}</p>
+    `;
+    
+    if (selectedTeam) {
+        details += `<p><strong><i class="fas fa-users"></i> Team Affiliation:</strong> Team ${selectedTeam}</p>`;
+    }
+    
+    details += `<p><strong><i class="fas fa-tshirt"></i> Accessories:</strong> `;
+    let accessories = [];
+    if (hasBadge) accessories.push("Badge");
+    if (hasBelt) accessories.push("Belt");
+    if (hasGloves) accessories.push("Gloves");
+    if (accessories.length > 0) {
+        details += accessories.join(", ");
+    } else {
+        details += "None";
+    }
+    details += `</p>`;
+    
+    document.getElementById('heroDetails').innerHTML = details;
+    
+    // Show final card and hide creator
+    document.getElementById('creatorCard').classList.add('hidden');
+    document.getElementById('finalHeroCard').classList.remove('hidden');
+}
+
+function resetCreator() {
+    document.getElementById('finalHeroCard').classList.add('hidden');
+    document.getElementById('creatorCard').classList.remove('hidden');
+    
+    // Reset form values
+    document.getElementById('nameInput').value = '';
+    document.getElementById('maskStyle').value = 'full';
+    document.getElementById('primaryPower').value = 'Super Strength';
+    document.getElementById('secondaryPower').value = 'None';
+    document.getElementById('powerSlider').value = '70';
+    document.getElementById('originStory').value = 'Alien from another planet';
+    
+    // Reset visual elements
+    changeCapeColor('#6c5ce7', activeCapeColor);
+    changeMaskColor('#0984e3', activeMaskColor);
+    changeBackground('linear-gradient(135deg, #0984e3, #0f0f1a)', activeBackground);
+    changeMaskStyle();
+    updatePowerLevel();
+    
+    // Reset accessories
+    document.getElementById('badgeToggle').checked = false;
+    document.getElementById('beltToggle').checked = false;
+    document.getElementById('glovesToggle').checked = false;
+    toggleAccessory('heroBadge', false);
+    toggleAccessory('heroBelt', false);
+    toggleGloves(false);
+    
+    // Reset team
+    selectTeam('', null);
+}
+
+function shareHero() {
+    const heroName = document.getElementById('finalHeroName').textContent;
+    alert(`${heroName} has been shared with other heroes! They'll be in touch for team-ups soon!`);
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    updatePowerLevel();
+    changeMaskStyle();
+});
+    </script>
+</body>
+</html>

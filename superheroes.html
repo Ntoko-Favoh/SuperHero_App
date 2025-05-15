@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superheroes | SuperUniverse</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #f0f0f0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            animation: bounce 2s infinite;
+        }
+
+        .logo-text span {
+            color: #ff3d00;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background-color: #ff3d00;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #ff3d00;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        /* Superhero Page */
+        .superhero-page {
+            min-height: 100vh;
+            padding: 120px 5% 50px;
+            position: relative;
+            background: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+        }
+        
+        .superhero-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 0;
+        }
+        
+        .superhero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .superhero-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .superhero-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ff3d00;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+        
+        .superhero-header p {
+            font-size: 1.2rem;
+            color: #f0f0f0;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .search-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 61, 0, 0.3);
+            margin-bottom: 2rem;
+        }
+        
+        .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .search-bar input:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 0 2px #ff3d00;
+        }
+        
+        .search-bar button {
+            background-color: #ff3d00;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background-color: #ff6e40;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 61, 0, 0.4);
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        
+        .filter-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .filter-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .filter-button.active {
+            background-color: #ff3d00;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .superhero-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .superhero-card {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 61, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .superhero-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(255, 61, 0, 0.2);
+        }
+        
+        .card-image {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .superhero-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #ff3d00;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+        
+        .card-content p {
+            color: #ccc;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1rem;
+        }
+        
+        .action-btn {
+            background-color: transparent;
+            color: #ff3d00;
+            border: 1px solid #ff3d00;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .action-btn:hover {
+            background-color: #ff3d00;
+            color: white;
+        }
+        
+        .favorite-btn .fas {
+            color: #ff3d00;
+        }
+        
+        .favorite-btn.active .fas {
+            color: white;
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #ff3d00;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 5rem 0;
+            grid-column: 1 / -1;
+        }
+        
+        .no-results i {
+            font-size: 3rem;
+            color: #ff3d00;
+            margin-bottom: 1rem;
+        }
+        
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .no-results p {
+            color: #ccc;
+        }
+        
+        .show-more-container {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .show-more-btn {
+            background-color: #ff3d00;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .show-more-btn:hover {
+            background-color: #ff6e40;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 61, 0, 0.4);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: rgba(0, 0, 0, 0.9);
+            margin: 50px auto;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 61, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: white;
+            z-index: 10;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: #ff3d00;
+        }
+        
+        .hero-details {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .hero-details-header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            color: white;
+            position: relative;
+            text-align: center;
+        }
+        
+        .hero-details-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ff3d00;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-details-name {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #ff3d00;
+        }
+        
+        .hero-details-alias {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-details-body {
+            padding: 2rem;
+        }
+        
+        .hero-biography {
+            margin-bottom: 2rem;
+        }
+        
+        .hero-biography h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: #ff3d00;
+            border-bottom: 2px solid rgba(255, 61, 0, 0.5);
+            padding-bottom: 0.5rem;
+        }
+        
+        .hero-biography p {
+            line-height: 1.8;
+            color: #ccc;
+        }
+        
+        .hero-powers, .hero-stats-detail {
+            margin-bottom: 2rem;
+        }
+        
+        .hero-powers h3, .hero-stats-detail h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: #ff3d00;
+            border-bottom: 2px solid rgba(255, 61, 0, 0.5);
+            padding-bottom: 0.5rem;
+        }
+        
+        .power-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        
+        .power-tag {
+            background-color: rgba(255, 61, 0, 0.2);
+            color: #ff6e40;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 61, 0, 0.5);
+        }
+        
+        .stat-bars {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .stat-item {
+            margin-bottom: 1rem;
+        }
+        
+        .stat-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        .stat-bar {
+            height: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .stat-value {
+            height: 100%;
+            background-color: #ff3d00;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: #111;
+            color: #fff;
+            padding: 3rem 5%;
+            border-top: 3px solid #ff3d00;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            color: #ff3d00;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #ff3d00;
+        }
+        
+        .footer-section p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-links a:hover {
+            color: #ff3d00;
+        }
+        
+        .footer-links i {
+            font-size: 0.9rem;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #333;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: space-around;
+            }
+            
+            .nav-links li {
+                margin: 0;
+            }
+            
+            .superhero-header h1 {
+                font-size: 2rem;
+            }
+            
+            .superhero-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-details-image {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .stat-bars {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-section {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.jpg" alt="SuperUniverse Logo">
+            <div class="logo-text">Super<span>Universe</span></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="superheroes.html" class="active"><i class="fas fa-mask"></i> Superheroes</a></li>
+            <li><a href="favorites.html"><i class="fas fa-heart"></i> Favorites</a></li>
+            <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Superhero Page -->
+    <div class="superhero-page">
+        <div class="superhero-container">
+            <div class="superhero-header">
+                <h1>Superhero Explorer</h1>
+                <p>Discover and learn about your favorite superheroes from across the multiverse!</p>
+            </div>
+            
+            <div class="search-container">
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search heroes by name or alias...">
+                    <button id="search-btn"><i class="fas fa-search"></i> Search</button>
+                </div>
+                
+                <div class="filter-options">
+                    <button class="filter-button active" data-filter="all">All</button>
+                    <button class="filter-button" data-filter="marvel">Marvel</button>
+                    <button class="filter-button" data-filter="dc">DC</button>
+                    <button class="filter-button" data-filter="other">Independent</button>
+                </div>
+            </div>
+            
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Loading heroes...</p>
+            </div>
+            
+            <div id="superhero-grid" class="superhero-grid"></div>
+            
+            <div class="show-more-container">
+                <button id="show-more-btn" class="show-more-btn">Show More</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hero Modal -->
+    <div id="hero-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="hero-details" class="hero-details"></div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Superhero Universe</h3>
+                    <p>Your ultimate source for superhero information from Marvel, DC, and beyond.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="superheroes.html"><i class="fas fa-mask"></i> Superheroes</a></li>
+                        <li><a href="favorites.html"><i class="fas fa-heart"></i> Favorites</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="superheroes.html"><i class="fas fa-bolt"></i> Marvel Heroes</a></li>
+                        <li><a href="superheroes.html"><i class="fas fa-shield-alt"></i> DC Heroes</a></li>
+                        <li><a href="superheroes.html"><i class="fas fa-star"></i> Other Heroes</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 SuperUniverse. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff3d00;"></i> for superhero fans</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sample hero data
+        const heroesData = [
+            {
+                id: 1,
+                name: "Spider-Man",
+                alias: "Peter Parker",
+                publisher: "marvel",
+                image: "images/06020257-5f81-408d-bab5-3fa1df78e50f.jpg",
+                description: "Bitten by a radioactive spider, Peter Parker gained superhuman abilities and became the amazing Spider-Man.",
+                powers: ["Wall-crawling", "Superhuman strength", "Spider-sense", "Web-shooting"],
+                stats: {
+                    intelligence: 90,
+                    strength: 75,
+                    speed: 85,
+                    durability: 70,
+                    power: 80,
+                    combat: 85
+                },
+                bio: "Peter Parker was bitten by a radioactive spider as a teenager, granting him spider-like powers. After the death of his Uncle Ben, which he could have prevented, Peter learned that with great power comes great responsibility. He then dedicated his life to fighting crime as Spider-Man, while also trying to maintain a normal life as a photographer and later a scientist."
+            },
+            {
+                id: 2,
+                name: "Batman",
+                alias: "Bruce Wayne",
+                publisher: "dc",
+                image: "images/batman2.jpg",
+                description: "After witnessing his parents' death, Bruce Wayne trained to become the ultimate crime-fighter.",
+                powers: ["Genius intellect", "Master detective", "Martial arts expert", "Advanced technology"],
+                stats: {
+                    intelligence: 100,
+                    strength: 60,
+                    speed: 50,
+                    durability: 60,
+                    power: 50,
+                    combat: 95
+                },
+                bio: "As a child, Bruce Wayne witnessed the murder of his billionaire parents, which motivated him to wage a war on crime. He trained extensively in various martial arts and detective skills, and uses his vast wealth to create advanced technology to aid in his war on crime as Batman, the Dark Knight of Gotham City."
+            },
+            {
+                id: 3,
+                name: "Wonder Woman",
+                alias: "Diana Prince",
+                publisher: "dc",
+                image: "images/wonderwoman.jpg",
+                description: "Amazon princess with superhuman strength and speed, fighting for peace and justice.",
+                powers: ["Superhuman strength", "Superhuman speed", "Flight", "Lasso of Truth"],
+                stats: {
+                    intelligence: 85,
+                    strength: 90,
+                    speed: 80,
+                    durability: 85,
+                    power: 90,
+                    combat: 95
+                },
+                bio: "Diana is the princess of the Amazons, a race of women warriors created by the gods of Mount Olympus to protect mankind. She was given life by Zeus and gifted with powers from the gods. When an American pilot, Steve Trevor, crashes on the island and tells of a war in the outside world, Diana leaves her home to fight alongside humanity, becoming Wonder Woman."
+            },
+            {
+                id: 4,
+                name: "Iron Man",
+                alias: "Tony Stark",
+                publisher: "marvel",
+                image: "images/Iron Man,Marvel Art,Futuristic….jpg",
+                description: "Genius inventor who created a powered suit of armor to save his life and now fights as Iron Man.",
+                powers: ["Powered armor", "Genius intellect", "Flight", "Energy projection"],
+                stats: {
+                    intelligence: 100,
+                    strength: 85,
+                    speed: 70,
+                    durability: 85,
+                    power: 90,
+                    combat: 70
+                },
+                bio: "Tony Stark, a genius inventor and billionaire industrialist, was captured by terrorists who wanted him to build weapons. Instead, he created a powered suit of armor to escape. After returning home, he refined the suit and used it to combat crime and terrorism as Iron Man. He later became a founding member of the Avengers."
+            },
+            {
+                id: 5,
+                name: "Black Panther",
+                alias: "T'Challa",
+                publisher: "marvel",
+                image: "images/213fbfd2-e1c5-42f3-9f6f-c8558b456780.jpg",
+                description: "King of Wakanda with enhanced abilities from the heart-shaped herb and vibranium suit.",
+                powers: ["Enhanced strength", "Enhanced agility", "Vibranium suit", "Genius intellect"],
+                stats: {
+                    intelligence: 90,
+                    strength: 80,
+                    speed: 80,
+                    durability: 85,
+                    power: 75,
+                    combat: 95
+                },
+                bio: "T'Challa is the king of Wakanda, a technologically advanced African nation. As the Black Panther, protector of his people, he gains enhanced abilities from consuming the heart-shaped herb. He uses his powers, along with his genius intellect and access to vibranium technology, to protect his nation and the world from various threats."
+            },
+            {
+                id: 6,
+                name: "Superman",
+                alias: "Clark Kent",
+                publisher: "dc",
+                image: "images/superman2.jpg",
+                description: "Last son of Krypton with incredible powers including flight, super strength, and heat vision.",
+                powers: ["Flight", "Super strength", "Heat vision", "Invulnerability", "Super speed"],
+                stats: {
+                    intelligence: 85,
+                    strength: 100,
+                    speed: 100,
+                    durability: 100,
+                    power: 100,
+                    combat: 85
+                },
+                bio: "Kal-El was sent to Earth from the dying planet Krypton as a baby. Raised as Clark Kent by a farming couple in Kansas, he developed extraordinary abilities under Earth's yellow sun. As Superman, he uses his powers to protect Earth and its people, embodying truth, justice, and hope."
+            },
+            {
+                id: 7,
+                name: "Captain America",
+                alias: "Steve Rogers",
+                publisher: "marvel",
+                image: "images/THE MOVIE.jpg",
+                description: "Super-soldier who fights for American ideals with an indestructible shield.",
+                powers: ["Peak human strength", "Enhanced durability", "Master tactician", "Indestructible shield"],
+                stats: {
+                    intelligence: 80,
+                    strength: 85,
+                    speed: 75,
+                    durability: 80,
+                    power: 70,
+                    combat: 100
+                },
+                bio: "Steve Rogers was a frail young man enhanced to the peak of human perfection by an experimental serum during World War II. After sacrificing himself to save the world and being frozen for decades, he awoke in the modern world. As Captain America, he continues to fight for freedom and justice with his iconic shield."
+            },
+            {
+                id: 8,
+                name: "The Flash",
+                alias: "Barry Allen",
+                publisher: "dc",
+                image: "images/the flash.jpg",
+                description: "Forensic scientist who gained super-speed in a freak accident.",
+                powers: ["Super speed", "Time travel", "Intangibility", "Accelerated healing"],
+                stats: {
+                    intelligence: 85,
+                    strength: 60,
+                    speed: 100,
+                    durability: 65,
+                    power: 85,
+                    combat: 75
+                },
+                bio: "Barry Allen was a forensic scientist who was struck by lightning during a storm in his lab, which gave him the ability to tap into the Speed Force and move at incredible speeds. As The Flash, he protects Central City from various threats, particularly other metahumans and those who would misuse the Speed Force."
+            },
+            {
+                id: 9,
+                name: "Hellboy",
+                alias: "Anung Un Rama",
+                publisher: "other",
+                image: "images/hellboy.jpg",
+                description: "Demon summoned to Earth who chose to fight for good as a paranormal investigator.",
+                powers: ["Superhuman strength", "Longevity", "Healing factor", "Right Hand of Doom"],
+                stats: {
+                    intelligence: 75,
+                    strength: 85,
+                    speed: 60,
+                    durability: 90,
+                    power: 80,
+                    combat: 85
+                },
+                bio: "Hellboy was summoned to Earth as a baby demon by Nazi occultists but was rescued and raised by the Bureau for Paranormal Research and Defense. Despite his destiny to bring about the apocalypse, he chooses to fight for humanity against supernatural threats, using his stone right hand and paranormal abilities."
+            },
+            {
+                id: 10,
+                name: "Thor",
+                alias: "Thor Odinson",
+                publisher: "marvel",
+                image: "images/thor.jpg",
+                description: "Asgardian god of thunder who wields the enchanted hammer Mjolnir.",
+                powers: ["Superhuman strength", "Weather manipulation", "Flight", "Longevity"],
+                stats: {
+                    intelligence: 75,
+                    strength: 100,
+                    speed: 85,
+                    durability: 95,
+                    power: 95,
+                    combat: 90
+                },
+                bio: "Thor is the Asgardian God of Thunder and the son of Odin, the All-Father. He wields Mjolnir, an enchanted hammer that grants him the ability to fly and control lightning. As a protector of both Asgard and Earth, Thor has fought countless battles against gods, monsters, and supervillains alike."
+            },
+            {
+                id: 11,
+                name: "Hulk",
+                alias: "Bruce Banner",
+                publisher: "marvel",
+                image: "images/hulk2.jpg",
+                description: "Dr. Bruce Banner transforms into the Hulk when angry - a giant green-skinned powerhouse of rage and strength.",
+                powers: ["Superhuman strength", "Invulnerability", "Regeneration", "Gamma radiation"],
+                stats: {
+                    intelligence: 85,
+                    strength: 100,
+                    speed: 70,
+                    durability: 100,
+                    power: 95,
+                    combat: 80
+                },
+                bio: "Dr. Bruce Banner was exposed to gamma radiation during an experiment, which causes him to transform into the Hulk when angry or stressed. The Hulk possesses incredible strength that increases with his anger level. Despite his destructive power, Banner and the Hulk have often been heroes, though their relationship is complex."
+            },
+            {
+                id: 12,
+                name: "Red Hulk",
+                alias: "Thaddeus Ross",
+                publisher: "marvel",
+                image: "images/red hulk.jpg",
+                                description: "General Thaddeus Ross transformed into a red-skinned version of the Hulk with similar powers but retains his intelligence.",
+                powers: ["Superhuman strength", "Heat generation", "Military tactics", "Radiation absorption"],
+                stats: {
+                    intelligence: 80,
+                    strength: 95,
+                    speed: 75,
+                    durability: 90,
+                    power: 85,
+                    combat: 85
+                },
+                bio: "General Thaddeus 'Thunderbolt' Ross was obsessed with capturing the Hulk, but later became a similar creature himself through scientific experimentation. Unlike Bruce Banner's Hulk, Ross retains his intelligence and military training when transformed. The Red Hulk possesses all of Hulk's strength plus the ability to generate intense heat and absorb radiation."
+            },
+            {
+                id: 13,
+                name: "Wolverine",
+                alias: "Logan",
+                publisher: "marvel",
+                image: "images/Wolverine2.jpg",
+                description: "Mutant with retractable claws, enhanced senses, and a powerful healing factor.",
+                powers: ["Retractable claws", "Healing factor", "Enhanced senses", "Adamantium skeleton"],
+                stats: {
+                    intelligence: 70,
+                    strength: 80,
+                    speed: 70,
+                    durability: 95,
+                    power: 75,
+                    combat: 100
+                },
+                bio: "Wolverine, also known as Logan, is a mutant with retractable bone claws, enhanced senses, and a regenerative healing factor that makes him nearly immortal. His skeleton was later bonded with the nearly indestructible metal adamantium. A master of multiple fighting styles, Wolverine has been a member of both the X-Men and the Avengers."
+            }
+        ];
+
+        // Variables to track pagination and filtering
+        let currentPage = 1;
+        const itemsPerPage = 6;
+        let filteredHeroes = [...heroesData];
+        let currentFilter = 'all';
+        let searchTerm = '';
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        
+        // DOM elements
+        const superheroGrid = document.getElementById('superhero-grid');
+        const showMoreBtn = document.getElementById('show-more-btn');
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const filterButtons = document.querySelectorAll('.filter-button');
+        const modal = document.getElementById('hero-modal');
+        const heroDetails = document.getElementById('hero-details');
+        const closeModal = document.querySelector('.close-modal');
+        const loadingSpinner = document.querySelector('.loading-spinner');
+        
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHeroes();
+            setupEventListeners();
+        });
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Search
+            searchBtn.addEventListener('click', handleSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+            
+            // Filters
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    currentFilter = button.dataset.filter;
+                    resetPagination();
+                    applyFilters();
+                });
+            });
+            
+            // Show more
+            showMoreBtn.addEventListener('click', () => {
+                currentPage++;
+                renderHeroes(false);
+            });
+            
+            // Modal
+            closeModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+        
+        // Handle search
+        function handleSearch() {
+            searchTerm = searchInput.value.trim().toLowerCase();
+            resetPagination();
+            applyFilters();
+        }
+        
+        // Apply filters
+        function applyFilters() {
+            filteredHeroes = heroesData.filter(hero => {
+                const matchesFilter = currentFilter === 'all' || hero.publisher === currentFilter;
+                const matchesSearch = searchTerm === '' || 
+                                      hero.name.toLowerCase().includes(searchTerm) || 
+                                      hero.alias.toLowerCase().includes(searchTerm);
+                return matchesFilter && matchesSearch;
+            });
+            
+            renderHeroes(true);
+        }
+        
+        // Reset pagination
+        function resetPagination() {
+            currentPage = 1;
+            superheroGrid.innerHTML = '';
+        }
+        
+        // Render heroes
+        function renderHeroes(reset = false) {
+            if (reset) {
+                superheroGrid.innerHTML = '';
+            }
+            
+            showLoadingSpinner(true);
+            
+            // Simulate loading delay
+            setTimeout(() => {
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const currentHeroes = filteredHeroes.slice(startIndex, endIndex);
+                
+                if (currentHeroes.length === 0 && currentPage === 1) {
+                    superheroGrid.innerHTML = `
+                        <div class="no-results">
+                            <i class="fas fa-search" style="font-size: 3rem; color: #ff3d00; margin-bottom: 15px;"></i>
+                            <h3>No heroes found</h3>
+                            <p>Try adjusting your search criteria or filters.</p>
+                        </div>
+                    `;
+                    showMoreBtn.style.display = 'none';
+                } else {
+                    currentHeroes.forEach(hero => {
+                        const heroCard = createHeroCard(hero);
+                        superheroGrid.appendChild(heroCard);
+                    });
+                    
+                    // Show or hide the Show More button
+                    if (endIndex >= filteredHeroes.length) {
+                        showMoreBtn.style.display = 'none';
+                    } else {
+                        showMoreBtn.style.display = 'block';
+                    }
+                }
+                
+                showLoadingSpinner(false);
+            }, 500);
+        }
+        
+        // Create hero card
+        function createHeroCard(hero) {
+            const card = document.createElement('div');
+            card.className = 'superhero-card';
+            card.dataset.id = hero.id;
+            
+            const isFavorite = favorites.includes(hero.id);
+            
+            card.innerHTML = `
+                <div class="card-image">
+                    <img src="${hero.image}" alt="${hero.name}">
+                    <div class="card-badge">${hero.publisher.toUpperCase()}</div>
+                </div>
+                <div class="card-content">
+                    <h3>${hero.name}</h3>
+                    <p>${hero.description}</p>
+                    <div class="card-meta">
+                        <span><i class="fas fa-star"></i> ${Math.floor(Math.random() * 2) + 4}.${Math.floor(Math.random() * 9)}</span>
+                        <span><i class="fas fa-calendar-alt"></i> ${Math.floor(Math.random() * 30) + 1980}</span>
+                    </div>
+                    <div class="card-actions">
+                        <button class="action-btn view-btn"><i class="fas fa-eye"></i> View</button>
+                        <button class="action-btn favorite-btn ${isFavorite ? 'active' : ''}">
+                            <i class="fas fa-heart"></i> ${isFavorite ? 'Saved' : 'Save'}
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Add event listeners to buttons
+            card.querySelector('.view-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                openHeroModal(hero);
+            });
+            
+            card.querySelector('.favorite-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleFavorite(hero.id, card);
+            });
+            
+            card.addEventListener('click', () => {
+                openHeroModal(hero);
+            });
+            
+            return card;
+        }
+        
+        // Toggle favorite status
+        function toggleFavorite(heroId, card) {
+            const index = favorites.indexOf(heroId);
+            const favoriteBtn = card.querySelector('.favorite-btn');
+            
+            if (index === -1) {
+                // Add to favorites
+                favorites.push(heroId);
+                favoriteBtn.classList.add('active');
+                favoriteBtn.innerHTML = '<i class="fas fa-heart"></i> Saved';
+            } else {
+                // Remove from favorites
+                favorites.splice(index, 1);
+                favoriteBtn.classList.remove('active');
+                favoriteBtn.innerHTML = '<i class="fas fa-heart"></i> Save';
+            }
+            
+            // Update localStorage
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+        }
+        
+        // Open hero modal
+        function openHeroModal(hero) {
+            const isFavorite = favorites.includes(hero.id);
+            
+            heroDetails.innerHTML = `
+                <div class="hero-details-header">
+                    <img class="hero-details-image" src="${hero.image}" alt="${hero.name}">
+                    <h2 class="hero-details-name">${hero.name}</h2>
+                    <p class="hero-details-alias">${hero.alias}</p>
+                    <button class="action-btn modal-favorite-btn ${isFavorite ? 'active' : ''}" data-id="${hero.id}">
+                        <i class="fas fa-heart"></i> ${isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+                    </button>
+                </div>
+                <div class="hero-details-body">
+                    <div class="hero-biography">
+                        <h3>Biography</h3>
+                        <p>${hero.bio}</p>
+                    </div>
+                    
+                    <div class="hero-powers">
+                        <h3>Powers & Abilities</h3>
+                        <div class="power-list">
+                            ${hero.powers.map(power => `<span class="power-tag">${power}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="hero-stats-detail">
+                        <h3>Stats</h3>
+                        <div class="stat-bars">
+                            <div class="stat-item">
+                                <div class="stat-label">
+                                    <span>Intelligence</span>
+                                    <span>${hero.stats.intelligence}/100</span>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-value" style="width: ${hero.stats.intelligence}%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-item">
+                                <div class="stat-label">
+                                    <span>Strength</span>
+                                    <span>${hero.stats.strength}/100</span>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-value" style="width: ${hero.stats.strength}%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-item">
+                                <div class="stat-label">
+                                    <span>Speed</span>
+                                    <span>${hero.stats.speed}/100</span>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-value" style="width: ${hero.stats.speed}%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-item">
+                                <div class="stat-label">
+                                    <span>Durability</span>
+                                    <span>${hero.stats.durability}/100</span>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-value" style="width: ${hero.stats.durability}%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-item">
+                                <div class="stat-label">
+                                    <span>Power</span>
+                                    <span>${hero.stats.power}/100</span>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-value" style="width: ${hero.stats.power}%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-item">
+                                <div class="stat-label">
+                                    <span>Combat</span>
+                                    <span>${hero.stats.combat}/100</span>
+                                </div>
+                                <div class="stat-bar">
+                                    <div class="stat-value" style="width: ${hero.stats.combat}%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add event listener to modal favorite button
+            heroDetails.querySelector('.modal-favorite-btn').addEventListener('click', (e) => {
+                const heroId = parseInt(e.currentTarget.dataset.id);
+                const card = document.querySelector(`.superhero-card[data-id="${heroId}"]`);
+                toggleFavorite(heroId, card);
+                
+                // Update modal button
+                const isFavorite = favorites.includes(heroId);
+                e.currentTarget.classList.toggle('active', isFavorite);
+                e.currentTarget.innerHTML = `<i class="fas fa-heart"></i> ${isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}`;
+            });
+            
+            modal.style.display = 'block';
+        }
+        
+        // Show or hide loading spinner
+        function showLoadingSpinner(show) {
+            loadingSpinner.style.display = show ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

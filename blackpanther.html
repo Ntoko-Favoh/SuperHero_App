@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Panther | Marvel Universe</title>
+    <style>
+        /* CSS Styles */
+        :root {
+            --wakanda-purple: #4a0e7a;
+            --vibranium-blue: #1fb6ff;
+            --gold: #ffd700;
+            --black: #000;
+            --white: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('images/32 remarkable wallpaper aesthetic black panther.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+            position: relative;
+            left: 600px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin: 20px 0;
+            color: var(--gold);
+            text-shadow: 0 0 10px var(--vibranium-blue);
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            color: var(--white);
+        }
+
+        .hero-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px var(--vibranium-blue);
+        }
+
+        .hero-details {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--vibranium-blue);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--vibranium-blue);
+            margin: 20px 0 10px;
+        }
+
+        .powers-abilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .power-item {
+            background: rgba(31, 182, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--vibranium-blue);
+        }
+
+        .comic-appearances {
+            margin: 40px 0;
+        }
+
+        .appearance-card {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .appearance-card img {
+            width: 150px;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .movie-section {
+            margin: 40px 0;
+        }
+
+        .movie-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .movie-card {
+            width: calc(33.333% - 20px);
+            min-width: 250px;
+            background: rgba(74, 14, 122, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .movie-info {
+            padding: 15px;
+        }
+
+        .back-button {
+            display: inline-block;
+            background: var(--wakanda-purple);
+            color: var(--white);
+            padding: 12px 30px;
+            border: 2px solid var(--gold);
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 20px 0;
+        }
+
+        .back-button:hover {
+            background: var(--vibranium-blue);
+            transform: scale(1.05);
+        }
+
+        /* Hero Stats Section */
+        .hero-stats {
+            margin: 40px 0;
+            background: rgba(31, 182, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid var(--vibranium-blue);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-bar {
+            height: 10px;
+            background: var(--black);
+            border-radius: 5px;
+            margin: 10px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-fill {
+            height: 100%;
+            background: var(--gold);
+            border-radius: 5px;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        /* Key Moments Section */
+        .key-moments {
+            margin: 40px 0;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--vibranium-blue);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+
+        .moment {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .moment::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: var(--gold);
+            border: 4px solid var(--vibranium-blue);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid var(--vibranium-blue);
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent var(--vibranium-blue);
+        }
+
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid var(--vibranium-blue);
+            border-width: 10px 10px 10px 0;
+            border-color: transparent var(--vibranium-blue) transparent transparent;
+        }
+
+        .moment-content {
+            padding: 20px;
+            background-color: rgba(31, 182, 255, 0.1);
+            border-radius: 6px;
+            border: 1px solid var(--vibranium-blue);
+        }
+
+        /* Allies Section */
+        .allies-section {
+            margin: 40px 0;
+        }
+
+        .allies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .ally-card {
+            text-align: center;
+        }
+
+        .ally-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            margin-bottom: 10px;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #111;
+            color: #fff;
+            padding: 3rem 5%;
+            border-top: 3px solid #ff3d00;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            color: #ff3d00;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #ff3d00;
+        }
+        
+        .footer-section p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-links a:hover {
+            color: #ff3d00;
+        }
+        
+        .footer-links i {
+            font-size: 0.9rem;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #333;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
+            .appearance-card {
+                flex-direction: column;
+            }
+            
+            .appearance-card img {
+                width: 100%;
+            }
+            
+            .movie-card {
+                width: 100%;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .moment {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .moment::before {
+                left: 60px;
+                border: medium solid var(--vibranium-blue);
+                border-width: 10px 10px 10px 0;
+                border-color: transparent var(--vibranium-blue) transparent transparent;
+            }
+            
+            .left::after, .right::after {
+                left: 18px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <img src="images/black panthar logo.jpg" alt="Black Panther Logo" class="logo">
+        <h1>BLACK PANTHER</h1>
+        <p class="tagline">King of Wakanda | Protector of His People</p>
+    </header>
+
+    <div class="container">
+        <a href="index.html" class="back-button">Back to Heroes</a>
+
+        <div class="hero-content">
+            <div class="hero-image">
+                <img src="images/125e4bad-d51f-4817-9440-1fd38036888d.jpg" alt="Black Panther">
+            </div>
+            <div class="hero-details">
+                <h2>T'Challa - The Black Panther</h2>
+                <p>T'Challa is the king of the secretive and highly advanced African nation of Wakanda. As the Black Panther, he is both the ruler of his people and their protector, wielding enhanced abilities granted by the Heart-Shaped Herb and utilizing advanced Wakandan technology, primarily composed of the rare metal vibranium.</p>
+                
+                <h3>Origin Story</h3>
+                <p>After the death of his father T'Chaka during a terrorist attack, T'Challa returned to Wakanda to take his place as king. To claim the throne, he had to undergo trials by combat and prove himself worthy of the mantle of the Black Panther, a title passed down through generations of Wakandan rulers.</p>
+            </div>
+        </div>
+
+        <!-- Hero Stats Section -->
+        <div class="hero-stats">
+            <h2>Hero Stats & Power Ratings</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h4>Intelligence</h4>
+                    <div class="stat-bar">
+                        <div class="stat-fill" style="width: 90%"></div>
+                    </div>
+                    <div class="stat-value">9/10</div>
+                </div>
+                <div class="stat-item">
+                    <h4>Strength</h4>
+                    <div class="stat-bar">
+                        <div class="stat-fill" style="width: 80%"></div>
+                    </div>
+                    <div class="stat-value">8/10</div>
+                </div>
+                <div class="stat-item">
+                    <h4>Speed</h4>
+                    <div class="stat-bar">
+                        <div class="stat-fill" style="width: 85%"></div>
+                    </div>
+                    <div class="stat-value">8.5/10</div>
+                </div>
+                <div class="stat-item">
+                    <h4>Durability</h4>
+                    <div class="stat-bar">
+                        <div class="stat-fill" style="width: 95%"></div>
+                    </div>
+                    <div class="stat-value">9.5/10</div>
+                </div>
+                <div class="stat-item">
+                    <h4>Energy Projection</h4>
+                    <div class="stat-bar">
+                        <div class="stat-fill" style="width: 70%"></div>
+                    </div>
+                    <div class="stat-value">7/10</div>
+                </div>
+                <div class="stat-item">
+                    <h4>Fighting Skills</h4>
+                    <div class="stat-bar">
+                        <div class="stat-fill" style="width: 95%"></div>
+                    </div>
+                    <div class="stat-value">9.5/10</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Powers & Abilities Section -->
+        <div class="powers-section">
+            <h2>Powers & Abilities</h2>
+            <div class="powers-abilities">
+                <div class="power-item">
+                    <h4>Enhanced Physical Abilities</h4>
+                    <p>Superhuman strength, speed, agility, stamina, and reflexes granted by the Heart-Shaped Herb, which connects him to the Panther God Bast.</p>
+                </div>
+                <div class="power-item">
+                    <h4>Vibranium Suit</h4>
+                    <p>Nanotech suit composed of vibranium that absorbs kinetic energy, provides bulletproof protection, and can release stored energy in powerful concussive blasts.</p>
+                </div>
+                <div class="power-item">
+                    <h4>Genius Intellect</h4>
+                    <p>PhD-level intellect with expertise in physics, engineering, and Wakandan technology. Graduated from Oxford University with multiple degrees.</p>
+                </div>
+                <div class="power-item">
+                    <h4>Master Combatant</h4>
+                    <p>Trained in various martial arts since childhood, including African fighting styles, capoeira, and advanced tactical combat techniques.</p>
+                </div>
+                <div class="power-item">
+                    <h4>Superhuman Senses</h4>
+                    <p>Enhanced vision, hearing, and smell that allow him to track targets and perceive the world with greater clarity than normal humans.</p>
+                </div>
+                <div class="power-item">
+                    <h4>Spiritual Connection</h4>
+                    <p>Ability to communicate with previous Black Panthers through the ancestral plane and draw upon their collective wisdom.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Moments Section -->
+        <div class="key-moments">
+            <h2>Key Moments in History</h2>
+            <div class="timeline">
+                <div class="moment left">
+                    <div class="moment-content">
+                        <h3>1966 - First Appearance</h3>
+                        <p>Debuted in Fantastic Four #52, becoming the first black superhero in mainstream American comics.</p>
+                    </div>
+                </div>
+                <div class="moment right">
+                    <div class="moment-content">
+                        <h3>1973 - Joins the Avengers</h3>
+                        <p>Became a member of the Avengers in Avengers #52, bringing Wakandan technology to the team.</p>
+                    </div>
+                </div>
+                <div class="moment left">
+                    <div class="moment-content">
+                        <h3>1998 - Marriage to Storm</h3>
+                        <p>Married X-Men's Storm in Black Panther Vol 3 #18, uniting two of Marvel's most powerful African heroes.</p>
+                    </div>
+                </div>
+                <div class="moment right">
+                    <div class="moment-content">
+                        <h3>2016 - MCU Debut</h3>
+                        <p>First appeared in Captain America: Civil War, portrayed by Chadwick Boseman.</p>
+                    </div>
+                </div>
+                <div class="moment left">
+                    <div class="moment-content">
+                        <h3>2018 - Solo Film</h3>
+                        <p>Black Panther movie released, becoming a cultural phenomenon and earning $1.3 billion worldwide.</p>
+                    </div>
+                </div>
+                <div class="moment right">
+                    <div class="moment-content">
+                        <h3>2020 - Passing of Chadwick Boseman</h3>
+                        <p>The world mourned the loss of Chadwick Boseman, who brought T'Challa to life with dignity and power.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Allies Section -->
+        <div class="allies-section">
+            <h2>Allies & Associates</h2>
+            <div class="allies-grid">
+                <div class="ally-card">
+                    <img src="images/Shuri.jpg" alt="Shuri">
+                    <h4>Shuri</h4>
+                    <p>Sister & Tech Genius</p>
+                </div>
+                <div class="ally-card">
+                    <img src="images/Okoye.jpg" alt="Okoye">
+                    <h4>Okoye</h4>
+                    <p>Dora Milaje Leader</p>
+                </div>
+                <div class="ally-card">
+                    <img src="images/Nakia.jpg" alt="Nakia">
+                    <h4>Nakia</h4>
+                    <p>Warrior & Love Interest</p>
+                </div>
+                <div class="ally-card">
+                    <img src="images/MBaku.jpg" alt="M'Baku">
+                    <h4>M'Baku</h4>
+                    <p>Jabari Leader</p>
+                </div>
+                <div class="ally-card">
+                    <img src="images/Ramonda.jpg" alt="Ramonda">
+                    <h4>Ramonda</h4>
+                    <p>Queen Mother</p>
+                </div>
+                <div class="ally-card">
+                    <img src="images/Everett Ross.jpg" alt="Everett Ross">
+                    <h4>Everett Ross</h4>
+                    <p>CIA Liaison</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="comic-appearances">
+            <h2>Key Comic Appearances</h2>
+            <div class="appearance-card">
+                <img src="images/Fantastic Four.jpg" alt="Fantastic Four #52">
+                <div>
+                    <h3>Fantastic Four #52 (1966)</h3>
+                    <p>First appearance of Black Panther, created by Stan Lee and Jack Kirby. T'Challa invites the Fantastic Four to Wakanda to test their abilities.</p>
+                </div>
+            </div>
+            <div class="appearance-card">
+                <img src="images/Black Panther1977.jpg" alt="Black Panther Vol 1">
+                <div>
+                    <h3>Black Panther Vol 1 (1977)</h3>
+                    <p>First solo series written by Jack Kirby, featuring T'Challa's adventures as both king and superhero.</p>
+                </div>
+            </div>
+            <div class="appearance-card">
+                <img src="images/Black Panther (2016).jpg" alt="Black Panther by Ta-Nehisi Coates">
+                <div>
+                    <h3>Black Panther (2016)</h3>
+                    <p>Critically acclaimed run by Ta-Nehisi Coates that redefined Wakanda and its politics.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="movie-section">
+            <h2>MCU Appearances</h2>
+            <div class="movie-cards">
+                <div class="movie-card">
+                    <img src="images/civilwar.jpg" alt="Captain America: Civil War">
+                    <div class="movie-info">
+                        <h3>Captain America: Civil War (2016)</h3>
+                        <p>First MCU appearance of T'Challa, seeking vengeance for his father's death.</p>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://m.media-amazon.com/images/M/MV5BMTg1MTY2MjYzNV5BMl5BanBnXkFtZTgwMTc4NTMwNDI@._V1_.jpg" alt="Black Panther">
+                    <div class="movie-info">
+                        <h3>Black Panther (2018)</h3>
+                        <p>Groundbreaking solo film that became a cultural phenomenon.</p>
+                    </div>
+                </div>
+                <div class="movie-card">
+                    <img src="https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_.jpg" alt="Avengers: Infinity War">
+                    <div class="movie-info">
+                        <h3>Avengers: Infinity War (2018)</h3>
+                        <p>T'Challa leads Wakanda's defense against Thanos' forces.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-button">Back to Heroes</a>
+    </div>
+
+    <footer>
+          <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Superhero Universe</h3>
+                    <p>Your ultimate source for superhero information from Marvel, DC, and beyond.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="superheroes.html"><i class="fas fa-mask"></i> Superheroes</a></li>
+                        <li><a href="favorites.html"><i class="fas fa-heart"></i> Favorites</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="superheroes.html"><i class="fas fa-bolt"></i> Marvel Heroes</a></li>
+                        <li><a href="superheroes.html"><i class="fas fa-shield-alt"></i> DC Heroes</a></li>
+                        <li><a href="superheroes.html"><i class="fas fa-star"></i> Other Heroes</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 SuperUniverse. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #ff3d00;"></i> for superhero fans</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

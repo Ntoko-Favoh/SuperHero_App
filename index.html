@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperUniverse - Home of Superheroes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: white;
+            overflow-x: hidden;
+            /* Full cover background */
+            background: url('images/32 remarkable wallpaper aesthetic black panther.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+        
+        /* Add overlay to make content more readable */
+        body:before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 0;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+            order: -1; /* Move image to the left of the text */
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #f0f0f0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: bounce 2s infinite;
+        }
+
+        .logo-text span {
+            color: #ff3d00;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background-color: #ff3d00;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #ff3d00;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        /* Icon button styling */
+        .icon-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(255, 61, 0, 0.5);
+            border: none;
+            cursor: pointer;
+        }
+
+        .icon-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 61, 0, 0.7);
+            background-color: #ff6e40;
+        }
+
+        .icon-button:active {
+            transform: scale(0.95);
+        }
+
+        .icon-button i {
+            font-size: 1.2rem;
+        }
+
+        /* Responsive styles for the icon-button */
+        @media (max-width: 768px) {
+            .icon-button {
+                width: 36px;
+                height: 36px;
+            }
+            
+            .icon-button i {
+                font-size: 1rem;
+            }
+        }
+
+        /* Optional: Style for when the menu is active/open */
+        .icon-button.active {
+            background-color: #d32f2f;
+        }
+        
+        .main-container {
+            width: 100%;
+            min-height: 100vh;
+            padding: 65px 0 0;
+            position: relative;
+            z-index: 1;
+            display: flex;
+        }
+        
+        .hero {
+            width: 60%;
+            min-height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            text-align: left;
+            padding: 90px 20px 40px 5%;
+            animation: slideInLeft 1s ease-out;
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin-bottom: 1.5rem;
+            color: #f0f0f0;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #ff3d00;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 61, 0, 0.5);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            background-color: #ff6e40;
+        }
+        
+        .sidebar {
+            width: 40%;
+            padding: 90px 5% 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .hero-cards-container {
+            width: 100%;
+        }
+        
+        .hero-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+            animation: slideInRight 1.5s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from { 
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to { 
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .hero-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: cardSlide 0.5s ease-out forwards;
+            opacity: 0;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+        }
+        
+        @keyframes cardSlide {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .hero-card:nth-child(1) { animation-delay: 0.2s; }
+        .hero-card:nth-child(2) { animation-delay: 0.4s; }
+        
+        .hero-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(255, 61, 0, 0.4);
+        }
+        
+        .hero-card .card-media {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .hero-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .hero-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* Make the first card image rounded on top left corner */
+        .hero-card:first-child .card-media {
+            border-top-left-radius: 20px;
+            overflow: hidden;
+        }
+        
+        .hero-info {
+            padding: 1rem;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.9));
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .hero-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #ff3d00;
+        }
+        
+        .hero-info p {
+            color: #ccc;
+            margin-bottom: 0.75rem;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            flex-grow: 1;
+            max-height: 70px;
+            overflow: auto;
+        }
+        
+        .hero-info button {
+            background-color: transparent;
+            border: 2px solid #ff3d00;
+            color: #ff3d00;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s;
+            width: 100%;
+            margin-top: auto;
+        }
+        
+        .hero-info button:hover {
+            background-color: #ff3d00;
+            color: white;
+        }
+        
+        /* Video container styling */
+        .video-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .hero, .sidebar {
+                width: 100%;
+                padding: 100px 5% 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/logo.jpg" alt="SuperUniverse Logo">
+            <span class="logo-text">Super<span>Universe</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="superheroes.html"><i class="fas fa-mask"></i> Superheroes</a></li>
+            <li><a href="favorites.html"><i class="fas fa-heart"></i> Favorites</a></li>
+            <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+        <a href="createHero.html" class="icon-button">
+            <i class="fas fa-bar"></i>
+        </a>
+    </nav>
+
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Welcome to SuperUniverse</h1>
+            <p>Discover the greatest collection of superheroes from across the multiverse. Learn their stories, powers, and join our community of superhero enthusiasts.</p>
+            <a href="superheroes.html" class="cta-button">Explore Heroes</a>
+        </section>
+        
+        <!-- Sidebar with Hero Cards -->
+        <div class="sidebar">
+            <div class="hero-cards-container">
+                <div class="hero-cards">
+                    <!-- Black Panther Card -->
+                    <div class="hero-card">
+                        <div class="card-media">
+                            <img src="images/213fbfd2-e1c5-42f3-9f6f-c8558b456780.jpg" alt="Black Panther">
+                        </div>
+                        <div class="hero-info">
+                            <h3>Black Panther</h3>
+                            <p>T'Challa, king of Wakanda, protector of the most technologically advanced nation on Earth. Wielding vibranium technology and the power of the heart-shaped herb, he defends his people as the legendary Black Panther.</p>
+                            <a href="blackpanther.html"class="button"><button>Learn More</button></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Black Panther Video Card -->
+                    <div class="hero-card">
+                        <div class="card-media">
+                            <div class="video-container">
+                                <iframe src="https://www.youtube.com/embed/nlErZsPZl20?si=-XaOjA5cFTR_ViGD" title="Black Panther Trailer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="hero-info">
+                            <h3>Black Panther: A New King Rise</h3>
+                            <button>Watch Trailer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
